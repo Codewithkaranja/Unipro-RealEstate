@@ -3,7 +3,7 @@
 // =========================
 
 // API Configuration
-const API_BASE = 'https://unipro-real-estate.onrender.com';
+const API_BASE = 'https://unipro-realestate.onrender.com';
 const API_ENDPOINTS = {
     listings: `${API_BASE}/api/listings`,
     listingById: (id) => `${API_BASE}/api/listings/${id}`,

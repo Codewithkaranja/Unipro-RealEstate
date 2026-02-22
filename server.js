@@ -34,6 +34,7 @@ const NODE_ENV = process.env.NODE_ENV || 'production';
 const IS_PRODUCTION = NODE_ENV === 'production';
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI;
+console.log("Loaded Mongo URI:", process.env.MONGODB_URI);
 
 console.log('🚀 =========== UNIPRO REAL ESTATE SERVER ===========');
 console.log(`🔐 Environment: ${NODE_ENV}`);
@@ -115,7 +116,7 @@ const corsOptions = {
     origin: [
         'https://uniprorealestate.co.ke',
         'https://www.uniprorealestate.co.ke',
-        'https://unipro-real-estate.onrender.com',
+        'https://unipro-realestate.onrender.com',
         'https://*.render.com',
         'http://localhost:3000',
         'http://localhost:5000',
@@ -741,7 +742,7 @@ const startServer = async () => {
 ✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨✨
 
 ✅ Server:    Running on port ${PORT} (0.0.0.0)
-🌐 URL:       https://unipro-real-estate.onrender.com
+🌐 URL:       https://unipro-realestate.onrender.com
 📁 Env:       ${NODE_ENV}
 🗄️ Database:  ${dbStatus}
 ☁️  Storage:   Cloudinary (Images)
@@ -753,7 +754,7 @@ const startServer = async () => {
    - CORS: Configured for uniprorealestate.co.ke
 
 🌐 Frontend:  ${process.env.FRONTEND_URL || 'https://uniprorealestate.co.ke'}
-🌐 Health:    https://unipro-real-estate.onrender.com/health
+🌐 Health:    https://unipro-realestate.onrender.com/health
 
 📊 API Endpoints:
    - GET    /api/listings           - List all land listings

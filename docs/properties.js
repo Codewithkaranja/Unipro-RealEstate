@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ========== CONFIGURATION ==========
     const CONFIG = {
-        apiBase: 'https://unipro-real-estate.onrender.com',
+        apiBase: 'https://unipro-realestate.onrender.com',
         itemsPerPage: 9,
         cacheKey: 'property_by_Unipro_cache',
         cacheTTL: 10 * 60 * 1000, // 10 minutes
