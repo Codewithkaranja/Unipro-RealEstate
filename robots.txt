@@ -1,0 +1,25 @@
+# robots.txt for propertybyfridah.com
+
+User-agent: *
+# Block admin and private folders
+Disallow: /admin/
+Disallow: /private/
+Disallow: /temp/
+
+# Block unnecessary query parameters
+Disallow: /*?sort=
+Disallow: /*?filter=
+Disallow: /*?utm_source=
+Disallow: /*?utm_medium=
+Disallow: /*?utm_campaign=
+
+# Allow main pages and property location filters
+Allow: /properties.html?location=kitengela
+Allow: /properties.html?location=ngong
+Allow: /properties.html?location=syokimau
+Allow: /properties.html?location=ongata-rongai
+Allow: /properties.html?location=athi-river
+Allow: /properties.html?location=kilimani
+
+# Sitemap location
+Sitemap: https://propertybyfridah.com/sitemap.xml
