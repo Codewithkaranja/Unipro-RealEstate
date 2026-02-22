@@ -1,4 +1,4 @@
-# robots.txt for propertybyfridah.com
+# robots.txt for uniprorealestate.co.ke
 
 User-agent: *
 # Block admin and private folders
@@ -22,4 +22,4 @@ Allow: /properties.html?location=athi-river
 Allow: /properties.html?location=kilimani
 
 # Sitemap location
-Sitemap: https://propertybyfridah.com/sitemap.xml
+Sitemap: https://uniprorealestate.co.ke/sitemap.xml
