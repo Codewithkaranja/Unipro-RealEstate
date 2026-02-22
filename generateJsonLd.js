@@ -1,14 +1,14 @@
+// generateJsonLd.js
 const mongoose = require('mongoose');
-const Property = require('./models/Property'); // adjust path if needed
+const LandListing = require('./models/LandListing'); // adjust path if needed
 
-// MongoDB connection
-mongoose.connect(
-  'mongodb+srv://propertybyfridah:%23Fridah254@cluster0.joar9ei.mongodb.net/propertyByFridahDB?retryWrites=true&w=majority',
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  }
-)
+// MongoDB connection – update with your actual credentials
+const MONGODB_URI = 'mongodb+srv://uniprorealestate_db_user:%23Unipro2026@cluster0.mqrczsc.mongodb.net/uniprorealestateDB?retryWrites=true&w=majority';
+
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
   .then(() => console.log('✅ MongoDB connected'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
 
@@ -32,46 +32,48 @@ function getAvailability(status) {
   }
 }
 
-// Base URL for images
-const baseUrl = 'https://propertybyfridah.com/images/';
-
 async function generateJsonLd() {
-  const properties = await Property.find();
+  const listings = await LandListing.find();
 
-  const graph = properties.map(prop => {
-    // Determine type
-    let type = 'House';
-    if ((prop.type || '').toLowerCase() === 'plot') type = 'LandParcel';
-    if ((prop.type || '').toLowerCase() === 'apartment') type = 'Apartment';
+  const graph = listings.map(listing => {
+    // All land types map to LandParcel
+    const type = 'LandParcel';
+
+    // Use stored image URLs directly (they are full Cloudinary URLs)
+    const images = Array.isArray(listing.images) ? listing.images : [];
 
     return {
       "@type": type,
-      "name": prop.title,
-      "description": prop.description,
-      "image": prop.images.map(img => baseUrl + img),
+      "name": listing.title,
+      "description": listing.description,
+      "image": images,
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": prop.location,
+        "addressLocality": listing.location,
         "addressCountry": "KE"
       },
-      ...(prop.bedrooms ? { "numberOfRooms": prop.bedrooms } : {}),
-      ...(prop.size ? {
+      // Use plotSize for floorSize (if available)
+      ...(listing.plotSize ? {
         "floorSize": {
           "@type": "QuantitativeValue",
-          "value": parseAcreSize(prop.size),
+          "value": parseAcreSize(listing.plotSize),
           "unitCode": "ACR"
         }
       } : {}),
       "offers": {
         "@type": "Offer",
-        "price": prop.price,
+        "price": listing.price,
         "priceCurrency": "KES",
-        "availability": getAvailability(prop.status),
+        "availability": getAvailability(listing.status),
         "seller": {
           "@type": "RealEstateAgent",
-          "name": "Property by Fridah"
+          "name": "Unipro Consultants Ltd",
+          "url": "https://uniprorealestate.co.ke"
         }
-      }
+      },
+      // Include timestamps if available
+      ...(listing.createdAt ? { "datePosted": listing.createdAt.toISOString() } : {}),
+      ...(listing.updatedAt ? { "dateModified": listing.updatedAt.toISOString() } : {})
     };
   });
 
